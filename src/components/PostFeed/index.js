@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Cookies from 'js-cookie'
 
 import {Component} from 'react'
@@ -5,6 +6,12 @@ import Loader from 'react-loader-spinner'
 
 import PostFeedItem from '../PostFeedItem'
 
+=======
+import {useState, useEffect} from 'react'
+import Loader from 'react-loader-spinner'
+import PostFeedItems from '../PostFeedItems'
+import instance from '../Instance'
+>>>>>>> 70fce280b41a005ce90c3b9cf857aca59736b9e2
 import './index.css'
 
 const apiStatusConstants = {
@@ -14,6 +21,7 @@ const apiStatusConstants = {
   inProgress: 'IN_PROGRESS',
 }
 
+<<<<<<< HEAD
 class PostFeed extends Component {
   state = {
     postFeedList: [],
@@ -162,6 +170,63 @@ class PostFeed extends Component {
   }
 
   renderPostFeedFailureView = () => (
+=======
+const PostFeed = () => {
+  const [feedData, setfeedData] = useState([])
+  const [likedId, setlikedId] = useState([])
+  const [apistatus, setapistatus] = useState(apiStatusConstants.initial)
+
+  const postData = async () => {
+    try {
+      setapistatus(apiStatusConstants.inProgress)
+      const res = await instance.get('https://apis.ccbp.in/insta-share/posts')
+      setfeedData(res.data.posts)
+      setapistatus(apiStatusConstants.success)
+    } catch (e) {
+      setapistatus(apiStatusConstants.failure)
+    }
+  }
+  useEffect(() => {
+    postData()
+  }, [])
+
+  const onSelectLike = async id => {
+    try {
+      const res = await instance.post(
+        `https://apis.ccbp.in/insta-share/posts/${id}/like`,
+        JSON.stringify({like_status: true}),
+      )
+      const updatedLikedIds = likedId.filter(eachId => {
+        if (eachId !== id) {
+          return true
+        }
+        return false
+      })
+      setlikedId(updatedLikedIds)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const onSelectUnLike = async id => {
+    try {
+      const res = await instance.post(
+        `https://apis.ccbp.in/insta-share/posts/${id}/like`,
+        JSON.stringify({like_status: false}),
+      )
+      setlikedId([...likedId, id])
+      console.log(res.data, 'abc')
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const onClickPostFeedFailureTryAgain = () => {
+    postData()
+  }
+
+  const renderPostFeedFailureView = () => (
+>>>>>>> 70fce280b41a005ce90c3b9cf857aca59736b9e2
     <div className="post-feed-failure-view">
       <img
         className="post-feed-failure-view-image"
@@ -174,13 +239,18 @@ class PostFeed extends Component {
       <button
         type="button"
         className="post-feed-failure-view-button"
+<<<<<<< HEAD
         onClick={this.onClickPostFeedFailureTryAgain}
+=======
+        onClick={onClickPostFeedFailureTryAgain}
+>>>>>>> 70fce280b41a005ce90c3b9cf857aca59736b9e2
       >
         Try again
       </button>
     </div>
   )
 
+<<<<<<< HEAD
   renderAllPostFeed = () => {
     const {apiStatus} = this.state
 
@@ -191,14 +261,53 @@ class PostFeed extends Component {
         return this.renderPostFeedLoadingView()
       case apiStatusConstants.failure:
         return this.renderPostFeedFailureView()
+=======
+  const renderPostFeedSuccessView = () => (
+    <>
+      <div className="post-feed-success-view">
+        <ul className="post-feed-list-container">
+          {feedData.map(each => (
+            <PostFeedItems
+              key={each.post_id}
+              eachFeed={each}
+              onSelectUnLike={onSelectUnLike}
+              onSelectLike={onSelectLike}
+              likedId={likedId}
+            />
+          ))}
+        </ul>
+      </div>
+    </>
+  )
+
+  const renderPostFeedLoadingView = () => (
+    <div className="desktop-post-feed-loader-container" data-testid="loader">
+      <Loader type="TailSpin" color="#4094EF" height={80} width={80} />
+    </div>
+  )
+
+  const renderAllPostFeedViews = () => {
+    switch (apistatus) {
+      case apiStatusConstants.success:
+        return renderPostFeedSuccessView()
+      case apiStatusConstants.inProgress:
+        return renderPostFeedLoadingView()
+      case apiStatusConstants.failure:
+        return renderPostFeedFailureView()
+>>>>>>> 70fce280b41a005ce90c3b9cf857aca59736b9e2
       default:
         return null
     }
   }
 
+<<<<<<< HEAD
   render() {
     return <>{this.renderAllPostFeed()}</>
   }
 }
 
+=======
+  return <>{renderAllPostFeedViews()}</>
+}
+>>>>>>> 70fce280b41a005ce90c3b9cf857aca59736b9e2
 export default PostFeed

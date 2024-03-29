@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import './index.css'
 
 import {Component} from 'react'
@@ -7,6 +8,15 @@ import Header from '../Header'
 import StoriesSlider from '../StoriesSlider'
 import PostFeed from '../PostFeed'
 import SearchResults from '../SearchResults'
+=======
+import {useState, useEffect} from 'react'
+import Header from '../Header'
+import StoriesSlider from '../StoriesSlider'
+import PostFeed from '../PostFeed'
+import SearchResult from '../SearchResult'
+import instance from '../Instance'
+import './index.css'
+>>>>>>> 70fce280b41a005ce90c3b9cf857aca59736b9e2
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -15,6 +25,7 @@ const apiStatusConstants = {
   inProgress: 'IN_PROGRESS',
 }
 
+<<<<<<< HEAD
 class Home extends Component {
   state = {
     searchMode: false,
@@ -165,14 +176,77 @@ class Home extends Component {
             />
           </div>
         ) : (
+=======
+const Home = () => {
+  const [searchMode, setsearchMode] = useState(false)
+  const [searchRes, setsearchRes] = useState([])
+  const [searchInput, setsearchInput] = useState('')
+  const [apiStatus, setapiStatus] = useState(apiStatusConstants.initial)
+
+  const searchData = async () => {
+    try {
+      setapiStatus(apiStatusConstants.inProgress)
+      const res = await instance.get(
+        `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`,
+      )
+      setsearchRes(res.data.posts)
+      setapiStatus(apiStatusConstants.success)
+    } catch (e) {
+      setapiStatus(apiStatusConstants.failure)
+    }
+  }
+
+  const pageActive = 'HOME'
+
+  const onChangeSearchInput = event => {
+    setsearchInput(event.target.value)
+  }
+  const onChangeSearchModeDesktop = () => {
+    setsearchMode(true)
+    setsearchInput('')
+  }
+  const onChangeSearchModeOff = () => {
+    setsearchMode(false)
+  }
+
+  return (
+    <>
+      <Header
+        pageActive={pageActive}
+        onChangeSearchInput={onChangeSearchInput}
+        searchMode={searchMode}
+        searchInput={searchInput}
+        getSearchResults={searchData}
+        onChangeSearchModeDesktop={onChangeSearchModeDesktop}
+        onChangeSearchModeOff={onChangeSearchModeOff}
+      />
+      {searchMode ? (
+        <div className="search-results-container">
+          <SearchResult
+            searchRes={searchRes}
+            searchData={searchData}
+            apiStatus={apiStatus}
+          />
+        </div>
+      ) : (
+        <>
+>>>>>>> 70fce280b41a005ce90c3b9cf857aca59736b9e2
           <div className="home-container">
             <StoriesSlider />
             <PostFeed />
           </div>
+<<<<<<< HEAD
         )}
       </>
     )
   }
 }
 
+=======
+        </>
+      )}
+    </>
+  )
+}
+>>>>>>> 70fce280b41a005ce90c3b9cf857aca59736b9e2
 export default Home
