@@ -7,10 +7,10 @@
   min-height: 100vh;
 }
 
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
   .my-profile-container {
   }
-}
+} */
 
 .my-profile-success-view {
   width: 100%;
