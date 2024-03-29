@@ -82,11 +82,13 @@
 }
 
 .nav-website-logo {
-  width: 55px;
+  width: 180px;
+  height: 20px;
 }
 @media screen and (min-width: 768px) {
   .nav-website-logo {
-    width: 59px;
+    width: 175px;
+    height: 25px;
   }
 }
 

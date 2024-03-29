@@ -110,7 +110,6 @@ class LoginForm extends Component {
             src="https://res.cloudinary.com/dv99nu7xv/image/upload/v1711689686/logo-no-background_c7wr63.png"
             alt="website logo"
           />
-          {/* <h1 className="website-logo-name">Insta Share</h1> */}
           <div className="input-container">{this.renderUsernameField()}</div>
           <div className="input-container">{this.renderPasswordField()}</div>
           {showSubmitError && <p className="error-message">{errorMsg}</p>}

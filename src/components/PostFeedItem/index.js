@@ -58,7 +58,6 @@ const PostFeedItem = props => {
               onClick={onSelectLike}
               data-testid="unLikeIcon"
             >
-              <span className="hide">1</span>
               <FcLike className="post-feed-item-Fclike-icon" />
             </button>
           ) : (
@@ -68,7 +67,6 @@ const PostFeedItem = props => {
               onClick={onSelectUnLike}
               data-testid="likeIcon"
             >
-              <span className="hide">1</span>
               <BsHeart className="post-feed-item-BsHeart-icon" />
             </button>
           )}
@@ -88,7 +86,7 @@ const PostFeedItem = props => {
             >
               <p className="post-feed-item-comment-item-comment">
                 <span className="post-feed-item-comment-item-username">
-                  {eachcomment.user_name}
+                  {eachcomment.user_name}{' '}
                 </span>
                 {eachcomment.comment}
               </p>

@@ -49,13 +49,13 @@
 }
 
 .login-website-logo {
-  height: 28px;
-  width: 176px;
+  height: 33px;
+  width: 196px;
 }
 @media screen and (min-width: 992px) {
   .login-website-logo {
-    height: 30px;
-    width: 180px;
+    height: 35px;
+    width: 200px;
   }
 }
 

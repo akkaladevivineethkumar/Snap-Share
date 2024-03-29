@@ -1,3 +1,5 @@
+import './index.css'
+
 const StoryItem = props => {
   const {storyDetails} = props
   const {userName, storyUrl} = storyDetails

@@ -67,14 +67,14 @@ class SearchResults extends Component {
   renderSearchResultLoaderView = () => (
     <>
       <div
-        data-testid="loader"
         className="mobile-search-result-loader-container"
+        data-testid="loader"
       >
         <Loader type="TailSpin" color="#4094EF" height={48} width={48} />
       </div>
       <div
-        data-testid="loader"
         className="desktop-search-result-loader-container"
+        data-testid="loader"
       >
         <Loader type="TailSpin" color="#4094EF" height={80} width={80} />
       </div>
@@ -152,7 +152,6 @@ class SearchResults extends Component {
             className="search-results-mobile-search-icon-btn"
             onClick={this.onGetSearchResults}
           >
-            <span>1</span>
             <FaSearch className="search-results-mobile-search-icon" />
           </button>
         </div>
